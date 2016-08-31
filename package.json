@@ -1,0 +1,11 @@
+{
+  "name": "virtual-events-reporting",
+  "version": "1.0.0",
+  "description": "1. Enter a campaign id 2. Configure some params 3. Get a report",
+  "main": "dist/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brad Parker <hi@bradparker.com>",
+  "license": "ISC"
+}
