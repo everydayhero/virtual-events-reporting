@@ -7,7 +7,7 @@
     "start": "brb serve --base-path=$BASE_PATH --client-config='./webpack.client.config'",
     "build": "brb build --base-path=$BASE_PATH --client-config='./webpack.client.config'",
     "build:staging": "NODE_ENV=production BASE_PATH='/virtual-events-reporting/' npm run build",
-    "deploy:staging": "npm run build:staging && gh-pages -d dist"
+    "deploy:staging": "npm run build:staging && cp dist/index.html dist/404.html && gh-pages -d dist"
   },
   "author": "Brad Parker <hi@bradparker.com>",
   "license": "ISC",
