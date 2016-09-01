@@ -4,8 +4,26 @@
   "description": "1. Enter a campaign id 2. Configure some params 3. Get a report",
   "main": "dist/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "brb serve --base-path=$BASE_PATH --client-config='./webpack.client.config'",
+    "build": "brb build --base-path=$BASE_PATH --client-config='./webpack.client.config'",
+    "build:staging": "NODE_ENV=production BASE_PATH='/virtual-events-reporting/' npm run build",
+    "deploy:staging": "npm run build:staging && gh-pages -d dist"
   },
   "author": "Brad Parker <hi@bradparker.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.14.0",
+    "boiler-room-runner": "^1.0.0-14",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.7.0",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0"
+  },
+  "devDependencies": {
+    "boiler-room-builder": "github:everydayhero/boiler-room-builder#v1.0.0-10",
+    "gh-pages": "^0.11.0"
+  }
 }

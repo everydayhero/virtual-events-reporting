@@ -1,2 +1,4 @@
-node_modules
+.envrc
 npm-debug.log
+node_modules
+dist
