@@ -56,11 +56,11 @@
 
 	var _routes2 = _interopRequireDefault(_routes);
 
-	var _store = __webpack_require__(22);
+	var _store = __webpack_require__(25);
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _shared = __webpack_require__(27);
+	var _shared = __webpack_require__(30);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -283,6 +283,12 @@
 	var keys = Object.keys;
 
 
+	var serializeForm = function serializeForm(inputs) {
+	  return keys(inputs).reduce(function (acc, inputName) {
+	    return _extends({}, acc, _defineProperty({}, inputName, inputs[inputName].value));
+	  }, {});
+	};
+
 	var handleSubmit = function handleSubmit(router, inputs) {
 	  var _serializeForm = serializeForm(inputs);
 
@@ -298,12 +304,6 @@
 	      threshold_value: thresholdValue
 	    }
 	  });
-	};
-
-	var serializeForm = function serializeForm(inputs) {
-	  return keys(inputs).reduce(function (acc, inputName) {
-	    return _extends({}, acc, _defineProperty({}, inputName, inputs[inputName].value));
-	  }, {});
 	};
 
 	var GetCampaign = function GetCampaign(_ref) {
@@ -322,10 +322,10 @@
 	      null,
 	      _react2.default.createElement(
 	        'label',
-	        { style: { display: 'block' } },
+	        { htmlFor: 'campaignUid' },
 	        'Campaign UID'
 	      ),
-	      _react2.default.createElement('input', { type: 'text', ref: function ref(elem) {
+	      _react2.default.createElement('input', { id: 'campaignUid', type: 'text', ref: function ref(elem) {
 	          inputs.campaignUid = elem;
 	        } })
 	    ),
@@ -334,24 +334,54 @@
 	      null,
 	      _react2.default.createElement(
 	        'label',
-	        { style: { display: 'block' } },
+	        { htmlFor: 'thresholdMetric' },
 	        'Threshold metric'
 	      ),
-	      _react2.default.createElement('input', { type: 'text', ref: function ref(elem) {
-	          inputs.thresholdMetric = elem;
-	        } })
+	      _react2.default.createElement(
+	        'select',
+	        { id: 'thresholdMetric', ref: function ref(elem) {
+	            inputs.thresholdMetric = elem;
+	          } },
+	        _react2.default.createElement(
+	          'option',
+	          { value: 'distance_in_meters_plus_multiplied_amount_cents' },
+	          'Dollars for Ks'
+	        ),
+	        _react2.default.createElement(
+	          'option',
+	          { value: 'amount_cents' },
+	          'Donations'
+	        ),
+	        _react2.default.createElement(
+	          'option',
+	          { value: 'distance_in_meters' },
+	          'Distance in meters'
+	        ),
+	        _react2.default.createElement(
+	          'option',
+	          { value: 'elevation_in_meters' },
+	          'Elevation in meters'
+	        )
+	      )
 	    ),
 	    _react2.default.createElement(
 	      'div',
 	      null,
 	      _react2.default.createElement(
 	        'label',
-	        { style: { display: 'block' } },
+	        { htmlFor: 'thresholdValue' },
 	        'Threshold value'
 	      ),
-	      _react2.default.createElement('input', { type: 'text', ref: function ref(elem) {
+	      _react2.default.createElement('input', {
+	        id: 'thresholdValue',
+	        type: 'number',
+	        inputMode: 'numeric',
+	        min: 0,
+	        step: 1,
+	        ref: function ref(elem) {
 	          inputs.thresholdValue = elem;
-	        } })
+	        }
+	      })
 	    ),
 	    _react2.default.createElement(
 	      'button',
@@ -389,15 +419,19 @@
 
 	var _reactRouter = __webpack_require__(4);
 
-	var _Show = __webpack_require__(14);
+	var _Campaign = __webpack_require__(14);
+
+	var _Campaign2 = _interopRequireDefault(_Campaign);
+
+	var _Show = __webpack_require__(20);
 
 	var _Show2 = _interopRequireDefault(_Show);
 
-	var _Teams = __webpack_require__(20);
+	var _Teams = __webpack_require__(21);
 
 	var _Teams2 = _interopRequireDefault(_Teams);
 
-	var _Individuals = __webpack_require__(21);
+	var _Individuals = __webpack_require__(24);
 
 	var _Individuals2 = _interopRequireDefault(_Individuals);
 
@@ -407,15 +441,9 @@
 	  _reactRouter.Route,
 	  {
 	    path: '/campaigns/:campaignUid',
-	    component: _Show2.default },
+	    component: _Campaign2.default },
 	  _react2.default.createElement(_reactRouter.IndexRoute, {
-	    component: function component() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        'View by team or individual'
-	      );
-	    }
+	    component: _Show2.default
 	  }),
 	  _react2.default.createElement(_reactRouter.Route, {
 	    path: '/campaigns/:campaignUid/teams',
@@ -535,8 +563,16 @@
 	    var dispatch = _ref.dispatch;
 	    var state = _ref.state;
 	    var params = _ref.params;
+	    var campaignUid = params.campaignUid;
+	    var threshold_metric = params.threshold_metric;
+	    var threshold_value = params.threshold_value;
 
-	    return dispatch((0, _actions.fetchCampaign)(params));
+
+	    return dispatch((0, _actions.fetchCampaign)({
+	      campaignUid: campaignUid,
+	      threshold_metric: threshold_metric,
+	      threshold_value: threshold_value
+	    }));
 	  }
 	};
 
@@ -613,7 +649,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.fetchCampaign = undefined;
+	exports.setCampaignSortedBy = exports.fetchCampaign = undefined;
 
 	var _axios = __webpack_require__(19);
 
@@ -676,6 +712,13 @@
 	  };
 	};
 
+	var setCampaignSortedBy = exports.setCampaignSortedBy = function setCampaignSortedBy(payload) {
+	  return {
+	    type: _constants.SET_CAMPAIGN_SORTED_BY,
+	    payload: payload
+	  };
+	};
+
 /***/ },
 /* 19 */
 /***/ function(module, exports) {
@@ -696,135 +739,41 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _redux = __webpack_require__(15);
-
-	var _reactRedux = __webpack_require__(16);
+	var _reactRouter = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var mapState = function mapState(_ref, _ref2) {
-	  var campaigns = _ref.campaigns;
-	  var params = _ref2.params;
-	  return {
-	    campaign: campaigns[params.campaignUid]
-	  };
-	};
-
-	var Teams = function Teams(_ref3) {
-	  var _ref3$campaign = _ref3.campaign;
-	  var campaign = _ref3$campaign === undefined ? {} : _ref3$campaign;
-
-	  var _ref4 = campaign.attributes || {};
-
-	  var _ref4$teams = _ref4.teams;
-	  var teams = _ref4$teams === undefined ? [] : _ref4$teams;
-
-
+	var Show = function Show(_ref) {
+	  var campaign = _ref.campaign;
+	  var params = _ref.params;
+	  var location = _ref.location;
 	  return _react2.default.createElement(
-	    'table',
+	    'div',
 	    null,
 	    _react2.default.createElement(
-	      'thead',
+	      'nav',
 	      null,
 	      _react2.default.createElement(
-	        'tr',
-	        null,
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'ID'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Name'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'URL'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Total funds raised'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Total distance in meters'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Total elevation in meters'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Total threshold value'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Passed threshold at'
-	        )
+	        _reactRouter.Link,
+	        { to: {
+	            pathname: '/campaigns/' + params.campaignUid + '/teams',
+	            query: location.query
+	          } },
+	        'View Teams'
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: {
+	            pathname: '/campaigns/' + params.campaignUid + '/individuals',
+	            query: location.query
+	          } },
+	        'View Individuals'
 	      )
-	    ),
-	    _react2.default.createElement(
-	      'tbody',
-	      null,
-	      teams.map(function (team, index) {
-	        return _react2.default.createElement(
-	          'tr',
-	          { key: index },
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            team.id
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            team.name
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            team.url
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            team.total_amount_cents
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            team.total_distance_in_meters
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            team.total_elevation_in_meters
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            team.total_threshold_value
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            team.passed_threshold_at
-	          )
-	        );
-	      })
 	    )
 	  );
 	};
 
-	exports.default = (0, _redux.compose)((0, _reactRedux.connect)(mapState))(Teams);
+	exports.default = (0, _reactRouter.withRouter)(Show);
 
 /***/ },
 /* 21 */
@@ -836,9 +785,280 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _react = __webpack_require__(3);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(15);
+
+	var _reactRedux = __webpack_require__(16);
+
+	var _reactRouter = __webpack_require__(4);
+
+	var _Table = __webpack_require__(22);
+
+	var _Table2 = _interopRequireDefault(_Table);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var mapState = function mapState(_ref, _ref2) {
+	  var campaigns = _ref.campaigns;
+	  var params = _ref2.params;
+	  return {
+	    campaign: campaigns[params.campaignUid]
+	  };
+	};
+
+	var setSortedBy = function setSortedBy(_ref3) {
+	  var uid = _ref3.uid;
+	  var router = _ref3.router;
+	  var query = _ref3.query;
+	  return function (attribute) {
+	    return router.push({
+	      pathname: '/campaigns/' + uid + '/teams',
+	      query: _extends({}, query, {
+	        sorted_by: attribute
+	      })
+	    });
+	  };
+	};
+
+	var Teams = function Teams(_ref4) {
+	  var _ref4$campaign = _ref4.campaign;
+	  var campaign = _ref4$campaign === undefined ? {} : _ref4$campaign;
+	  var params = _ref4.params;
+	  var location = _ref4.location;
+	  var router = _ref4.router;
+
+	  var _ref5 = campaign.attributes || {};
+
+	  var _ref5$teams = _ref5.teams;
+	  var teams = _ref5$teams === undefined ? [] : _ref5$teams;
+	  var uid = params.campaignUid;
+	  var query = location.query;
+	  var sortedBy = query.sorted_by;
+
+
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h1',
+	      null,
+	      'Teams'
+	    ),
+	    _react2.default.createElement(_Table2.default, {
+	      campaignUid: params.campaignUid,
+	      sortedBy: sortedBy,
+	      setSortedBy: setSortedBy({
+	        uid: uid,
+	        router: router,
+	        query: query
+	      }),
+	      headers: [{ attribute: 'id', label: 'ID' }, { attribute: 'name', label: 'Name' }, { attribute: 'url', label: 'URL' }, { attribute: 'total_amount_cents', label: 'Donations in cents' }, { attribute: 'total_distance_in_meters', label: 'Distance in meters' }, { attribute: 'total_elevation_in_meters', label: 'Elevation in meters' }, { attribute: 'total_threshold_value', label: 'Threshold value' }, { attribute: 'passed_threshold_at', label: 'Passed threshold at' }],
+	      data: teams
+	    })
+	  );
+	};
+
+	exports.default = (0, _redux.compose)(_reactRouter.withRouter, (0, _reactRedux.connect)(mapState))(Teams);
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _papaparse = __webpack_require__(23);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var createHeader = function createHeader() {
+	  var setSortedBy = arguments.length <= 0 || arguments[0] === undefined ? function () {} : arguments[0];
+	  var sortedBy = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
+	  return function (header, index) {
+	    var attribute = header.attribute;
+	    var label = header.label;
+
+	    var sortAttribute = sortedBy === attribute ? '-' + attribute : attribute;
+
+	    return _react2.default.createElement(
+	      'th',
+	      { key: index },
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: function onClick(e) {
+	            return setSortedBy(sortAttribute);
+	          } },
+	        label
+	      )
+	    );
+	  };
+	};
+
+	var sort = function sort(sortedBy, collection) {
+	  var isReversed = sortedBy[0] === '-';
+	  var attribute = isReversed ? sortedBy.slice(1) : sortedBy;
+
+	  var sorted = collection.sort(function (a, b) {
+	    return a[attribute] - b[attribute];
+	  });
+
+	  return isReversed ? sorted.reverse() : sorted;
+	};
+
+	var createRow = function createRow(headers) {
+	  return function (datum, index) {
+	    return _react2.default.createElement(
+	      'tr',
+	      { key: index },
+	      headers.map(function (_ref, index) {
+	        var attribute = _ref.attribute;
+	        return _react2.default.createElement(
+	          'td',
+	          { key: index },
+	          datum[attribute]
+	        );
+	      })
+	    );
+	  };
+	};
+
+	var Table = function (_Component) {
+	  _inherits(Table, _Component);
+
+	  function Table(props) {
+	    _classCallCheck(this, Table);
+
+	    var _this = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props));
+
+	    _this.state = {
+	      downloadURL: ''
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Table, [{
+	    key: 'createCSVURL',
+	    value: function createCSVURL(data) {
+	      var _global = global;
+	      var URL = _global.URL;
+	      var Blob = _global.Blob;
+
+	      var csv = (0, _papaparse.unparse)(data);
+	      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+	      var url = URL.createObjectURL(blob);
+
+	      this.setState({
+	        downloadURL: url
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var _props = this.props;
+	      var _props$data = _props.data;
+	      var data = _props$data === undefined ? [] : _props$data;
+	      var _props$headers = _props.headers;
+	      var headers = _props$headers === undefined ? [] : _props$headers;
+	      var _props$setSortedBy = _props.setSortedBy;
+	      var setSortedBy = _props$setSortedBy === undefined ? function () {} : _props$setSortedBy;
+	      var _props$sortedBy = _props.sortedBy;
+	      var sortedBy = _props$sortedBy === undefined ? '' : _props$sortedBy;
+	      var downloadURL = this.state.downloadURL;
+
+
+	      var sorted = sort(sortedBy, data);
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: function onClick(e) {
+	              return _this2.createCSVURL(sorted);
+	            } },
+	          'Create CSV'
+	        ),
+	        downloadURL && _react2.default.createElement(
+	          'a',
+	          { href: downloadURL, target: '_blank', download: 'virtual-event-info.csv' },
+	          'Download CSV'
+	        ),
+	        _react2.default.createElement(
+	          'table',
+	          null,
+	          _react2.default.createElement(
+	            'thead',
+	            null,
+	            _react2.default.createElement(
+	              'tr',
+	              null,
+	              headers.map(createHeader(setSortedBy, sortedBy))
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tbody',
+	            null,
+	            sorted.map(createRow(headers))
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Table;
+	}(_react.Component);
+
+	exports.default = Table;
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	module.exports = require("papaparse");
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Table = __webpack_require__(22);
+
+	var _Table2 = _interopRequireDefault(_Table);
+
+	var _reactRouter = __webpack_require__(4);
 
 	var _redux = __webpack_require__(15);
 
@@ -854,104 +1074,62 @@
 	  };
 	};
 
-	var Individuals = function Individuals(_ref3) {
-	  var _ref3$campaign = _ref3.campaign;
-	  var campaign = _ref3$campaign === undefined ? {} : _ref3$campaign;
+	var setSortedBy = function setSortedBy(_ref3) {
+	  var uid = _ref3.uid;
+	  var router = _ref3.router;
+	  var query = _ref3.query;
+	  return function (attribute) {
+	    return router.push({
+	      pathname: '/campaigns/' + uid + '/individuals',
+	      query: _extends({}, query, {
+	        sorted_by: attribute
+	      })
+	    });
+	  };
+	};
 
-	  var _ref4 = campaign.attributes || {};
+	var Individuals = function Individuals(_ref4) {
+	  var _ref4$campaign = _ref4.campaign;
+	  var campaign = _ref4$campaign === undefined ? {} : _ref4$campaign;
+	  var params = _ref4.params;
+	  var location = _ref4.location;
+	  var router = _ref4.router;
 
-	  var _ref4$individuals = _ref4.individuals;
-	  var individuals = _ref4$individuals === undefined ? [] : _ref4$individuals;
+	  var _ref5 = campaign.attributes || {};
+
+	  var _ref5$individuals = _ref5.individuals;
+	  var individuals = _ref5$individuals === undefined ? [] : _ref5$individuals;
+	  var uid = params.campaignUid;
+	  var query = location.query;
+	  var sortedBy = query.sorted_by;
 
 
 	  return _react2.default.createElement(
-	    'table',
+	    'div',
 	    null,
 	    _react2.default.createElement(
-	      'thead',
+	      'h1',
 	      null,
-	      _react2.default.createElement(
-	        'tr',
-	        null,
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'ID'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Name'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'URL'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Total funds raised'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Total distance in meters'
-	        ),
-	        _react2.default.createElement(
-	          'th',
-	          null,
-	          'Total elevation in meters'
-	        )
-	      )
+	      'Individuals'
 	    ),
-	    _react2.default.createElement(
-	      'tbody',
-	      null,
-	      individuals.map(function (individual, index) {
-	        return _react2.default.createElement(
-	          'tr',
-	          { key: index },
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            individual.id
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            individual.name
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            individual.url
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            individual.total_amount_cents
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            individual.total_distance_in_meters
-	          ),
-	          _react2.default.createElement(
-	            'td',
-	            null,
-	            individual.total_elevation_in_meters
-	          )
-	        );
-	      })
-	    )
+	    _react2.default.createElement(_Table2.default, {
+	      campaignUid: params.campaignUid,
+	      sortedBy: sortedBy,
+	      setSortedBy: setSortedBy({
+	        uid: uid,
+	        router: router,
+	        query: query
+	      }),
+	      headers: [{ attribute: 'id', label: 'ID' }, { attribute: 'name', label: 'Name' }, { attribute: 'url', label: 'URL' }, { attribute: 'total_amount_cents', label: 'Donations in cents' }, { attribute: 'total_distance_in_meters', label: 'Distance in meters' }, { attribute: 'total_elevation_in_meters', label: 'Elevation in meters' }, { attribute: 'total_threshold_value', label: 'Threshold value' }, { attribute: 'passed_threshold_at', label: 'Passed threshold at' }],
+	      data: individuals
+	    })
 	  );
 	};
 
-	exports.default = (0, _redux.compose)((0, _reactRedux.connect)(mapState))(Individuals);
+	exports.default = (0, _redux.compose)(_reactRouter.withRouter, (0, _reactRedux.connect)(mapState))(Individuals);
 
 /***/ },
-/* 22 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -960,15 +1138,15 @@
 	  value: true
 	});
 
-	var _reduxLogger = __webpack_require__(23);
+	var _reduxLogger = __webpack_require__(26);
 
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
-	var _reducer = __webpack_require__(24);
+	var _reducer = __webpack_require__(27);
 
 	var _reducer2 = _interopRequireDefault(_reducer);
 
-	var _reduxThunk = __webpack_require__(26);
+	var _reduxThunk = __webpack_require__(29);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -990,13 +1168,13 @@
 	};
 
 /***/ },
-/* 23 */
+/* 26 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-logger");
 
 /***/ },
-/* 24 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1007,7 +1185,7 @@
 
 	var _redux = __webpack_require__(15);
 
-	var _reactRouterRedux = __webpack_require__(25);
+	var _reactRouterRedux = __webpack_require__(28);
 
 	var _campaigns = __webpack_require__(11);
 
@@ -1017,19 +1195,19 @@
 	});
 
 /***/ },
-/* 25 */
+/* 28 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-router-redux");
 
 /***/ },
-/* 26 */
+/* 29 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
 
 /***/ },
-/* 27 */
+/* 30 */
 /***/ function(module, exports) {
 
 	'use strict';
