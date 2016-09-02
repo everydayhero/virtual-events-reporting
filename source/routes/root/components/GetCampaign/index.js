@@ -3,6 +3,13 @@ import { withRouter } from 'react-router'
 
 const { keys } = Object
 
+const serializeForm = (inputs) => (
+  keys(inputs).reduce((acc, inputName) => ({
+    ...acc,
+    [inputName]: inputs[inputName].value
+  }), {})
+)
+
 const handleSubmit = (router, inputs) => {
   const {
     campaignUid,
@@ -19,13 +26,6 @@ const handleSubmit = (router, inputs) => {
   })
 }
 
-const serializeForm = (inputs) => (
-  keys(inputs).reduce((acc, inputName) => ({
-    ...acc,
-    [inputName]: inputs[inputName].value
-  }), {})
-)
-
 const GetCampaign = ({ router }) => {
   let inputs = {}
 
@@ -35,30 +35,50 @@ const GetCampaign = ({ router }) => {
       handleSubmit(router, inputs)
     }}>
       <div>
-        <label style={{ display: 'block' }}>
+        <label htmlFor='campaignUid'>
           Campaign UID
         </label>
-        <input type='text' ref={(elem) => {
+        <input id='campaignUid' type='text' ref={(elem) => {
           inputs.campaignUid = elem
         }} />
       </div>
 
       <div>
-        <label style={{ display: 'block' }}>
+        <label htmlFor='thresholdMetric'>
           Threshold metric
         </label>
-        <input type='text' ref={(elem) => {
+        <select id='thresholdMetric' ref={(elem) => {
           inputs.thresholdMetric = elem
-        }} />
+        }}>
+          <option value='distance_in_meters_plus_multiplied_amount_cents'>
+            Dollars for Ks
+          </option>
+          <option value='amount_cents'>
+            Donations
+          </option>
+          <option value='distance_in_meters'>
+            Distance in meters
+          </option>
+          <option value='elevation_in_meters'>
+            Elevation in meters
+          </option>
+        </select>
       </div>
 
       <div>
-        <label style={{ display: 'block' }}>
+        <label htmlFor='thresholdValue'>
           Threshold value
         </label>
-        <input type='text' ref={(elem) => {
-          inputs.thresholdValue = elem
-        }} />
+        <input
+          id='thresholdValue'
+          type='number'
+          inputMode='numeric'
+          min={0}
+          step={1}
+          ref={(elem) => {
+            inputs.thresholdValue = elem
+          }}
+        />
       </div>
 
       <button type='submit'>Go!</button>

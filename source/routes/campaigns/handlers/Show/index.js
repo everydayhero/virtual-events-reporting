@@ -1,48 +1,24 @@
 import React from 'react'
-import { compose } from 'redux'
-import { connect } from 'react-redux'
-import { provideHooks } from 'redial'
-import { Link } from 'react-router'
-import { fetchCampaign } from '../../store/actions'
+import { withRouter, Link } from 'react-router'
 
-const hooks = {
-  fetch ({
-    dispatch,
-    state,
-    params
-  }) {
-    return dispatch(fetchCampaign(params))
-  }
-}
-
-const mapState = ({ campaigns }, { params }) => ({
-  campaign: campaigns[params.campaignUid]
-})
-
-const Campaign = ({ campaign, params, location, children }) => (
+const Show = ({ campaign, params, location }) => (
   <div>
     <nav>
       <Link to={{
         pathname: `/campaigns/${params.campaignUid}/teams`,
         query: location.query
       }}>
-        Teams
+        View Teams
       </Link>
 
       <Link to={{
         pathname: `/campaigns/${params.campaignUid}/individuals`,
         query: location.query
       }}>
-        Individuals
+        View Individuals
       </Link>
     </nav>
-    <div>
-      {children}
-    </div>
   </div>
 )
 
-export default compose(
-  provideHooks(hooks),
-  connect(mapState)
-)(Campaign)
+export default withRouter(Show)

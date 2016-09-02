@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
+import Campaign from './handlers/Campaign'
 import Show from './handlers/Show'
 import Teams from './handlers/Teams'
 import Individuals from './handlers/Individuals'
@@ -7,12 +8,10 @@ import Individuals from './handlers/Individuals'
 export default (
   <Route
     path='/campaigns/:campaignUid'
-    component={Show}>
+    component={Campaign}>
 
     <IndexRoute
-      component={
-        () => <div>View by team or individual</div>
-      }
+      component={Show}
     />
 
     <Route

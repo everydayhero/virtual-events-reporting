@@ -2,7 +2,8 @@ import axios from 'axios'
 import {
   FETCH_CAMPAIGN,
   FETCH_CAMPAIGN_SUCCESS,
-  FETCH_CAMPAIGN_FAILURE
+  FETCH_CAMPAIGN_FAILURE,
+  SET_CAMPAIGN_SORTED_BY
 } from '../constants'
 
 const API_BASE = `${process.env.SUPPORTER_URL || 'https://everydayhero-staging.com'}/api/v3/prerelease/metrics`
@@ -46,3 +47,8 @@ export const fetchCampaign = ({
     return Promise.reject(error)
   })
 }
+
+export const setCampaignSortedBy = (payload) => ({
+  type: SET_CAMPAIGN_SORTED_BY,
+  payload
+})

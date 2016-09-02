@@ -1,46 +1,62 @@
 import React from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+import Table from '../../components/Table'
 
 const mapState = ({ campaigns }, { params }) => ({
   campaign: campaigns[params.campaignUid]
 })
 
-const Teams = ({ campaign = {} }) => {
+const setSortedBy = ({
+  uid,
+  router,
+  query
+}) => (attribute) => (
+  router.push({
+    pathname: `/campaigns/${uid}/teams`,
+    query: {
+      ...query,
+      sorted_by: attribute
+    }
+  })
+)
+
+const Teams = ({ campaign = {}, params, location, router }) => {
   const { teams = [] } = campaign.attributes || {}
+  const { campaignUid: uid } = params
+  const { query } = location
+  const { sorted_by: sortedBy } = query
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>URL</th>
-          <th>Total funds raised</th>
-          <th>Total distance in meters</th>
-          <th>Total elevation in meters</th>
-          <th>Total threshold value</th>
-          <th>Passed threshold at</th>
-        </tr>
-      </thead>
-      <tbody>
-        {teams.map((team, index) => (
-          <tr key={index}>
-            <td>{team.id}</td>
-            <td>{team.name}</td>
-            <td>{team.url}</td>
-            <td>{team.total_amount_cents}</td>
-            <td>{team.total_distance_in_meters}</td>
-            <td>{team.total_elevation_in_meters}</td>
-            <td>{team.total_threshold_value}</td>
-            <td>{team.passed_threshold_at}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div>
+      <h1>Teams</h1>
+
+      <Table
+        campaignUid={params.campaignUid}
+        sortedBy={sortedBy}
+        setSortedBy={setSortedBy({
+          uid,
+          router,
+          query
+        })}
+        headers={[
+          { attribute: 'id', label: 'ID' },
+          { attribute: 'name', label: 'Name' },
+          { attribute: 'url', label: 'URL' },
+          { attribute: 'total_amount_cents', label: 'Donations in cents' },
+          { attribute: 'total_distance_in_meters', label: 'Distance in meters' },
+          { attribute: 'total_elevation_in_meters', label: 'Elevation in meters' },
+          { attribute: 'total_threshold_value', label: 'Threshold value' },
+          { attribute: 'passed_threshold_at', label: 'Passed threshold at' }
+        ]}
+        data={teams}
+      />
+    </div>
   )
 }
 
 export default compose(
+  withRouter,
   connect(mapState)
 )(Teams)
