@@ -326,8 +326,11 @@
 	  },
 
 	  green: {
-	    primary: '#00a044'
-	  }
+	    primary: '#00a044',
+	    secondary: '#7ec774'
+	  },
+
+	  orange: '#cf4c22'
 	};
 
 /***/ },
@@ -1116,6 +1119,10 @@
 
 	var _css = __webpack_require__(9);
 
+	var _merge = __webpack_require__(18);
+
+	var _merge2 = _interopRequireDefault(_merge);
+
 	var _styles = __webpack_require__(33);
 
 	var _styles2 = _interopRequireDefault(_styles);
@@ -1136,12 +1143,12 @@
 	    _react2.default.createElement(
 	      _reactRouter.Link,
 	      {
-	        className: (0, _css.classes)(_styles2.default.linkLarge),
+	        className: (0, _css.classes)((0, _merge2.default)(_styles2.default.linkLarge, _styles2.default[status] || {})),
 	        to: {
 	          pathname: '/campaigns/' + campaignUid,
 	          query: query
 	        } },
-	      status === 'fetched' ? campaign.name : status
+	      status === 'fetching' ? 'Fetching' : status === 'failed' ? 'Failed to fetch campaign info' : campaign.name
 	    ),
 	    _react2.default.createElement(
 	      _reactRouter.Link,
@@ -1209,8 +1216,39 @@
 	    flex: '1 1 50%'
 	  }),
 	  linkLarge: _extends({}, linkBase, {
+	    fontWeight: 'bold',
 	    flex: '1 1 100%'
-	  })
+	  }),
+	  fetching: {
+	    color: _css.colors.green.primary,
+	    backgroundColor: _css.colors.green.secondary,
+	    backgroundImage: ['repeating-linear-gradient(\n        -45deg,\n        rgba(255, 255, 255, 0.75) 0,\n        rgba(255, 255, 255, 0.75) 25%,\n        ' + _css.colors.green.secondary + ' 25%,\n        ' + _css.colors.green.secondary + ' 50%\n      )'],
+	    animation: 'progress 2s linear infinite',
+	    backgroundSize: '50px 50px',
+
+	    '@keyframes progress': {
+	      '0%': {
+	        backgroundPosition: '0 0'
+	      },
+	      '100%': {
+	        backgroundPosition: '-100px 0px'
+	      }
+	    }
+	  },
+
+	  fetched: {
+	    color: _css.colors.grey.dark,
+	    backgroundColor: _css.colors.white,
+	    backgroundImage: 'none',
+	    animation: 'none'
+	  },
+
+	  failed: {
+	    color: _css.colors.orange,
+	    backgroundColor: _css.colors.white,
+	    backgroundImage: 'none',
+	    animation: 'none'
+	  }
 	};
 
 /***/ },
@@ -1822,16 +1860,20 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          _Button2.default,
-	          { onClick: function onClick(e) {
-	              return _this2.createCSVURL(sorted);
-	            } },
-	          'Create CSV'
-	        ),
-	        downloadURL && _react2.default.createElement(
-	          _Button.Anchor,
-	          { theme: 'primary', href: downloadURL, target: '_blank', download: 'virtual-event-info.csv' },
-	          'Download CSV'
+	          'div',
+	          { className: (0, _css.classes)(_styles2.default.actions) },
+	          _react2.default.createElement(
+	            _Button2.default,
+	            { onClick: function onClick(e) {
+	                return _this2.createCSVURL(sorted);
+	              } },
+	            'Create CSV'
+	          ),
+	          downloadURL && _react2.default.createElement(
+	            _Button.Anchor,
+	            { theme: 'primary', href: downloadURL, target: '_blank', download: 'virtual-event-info.csv' },
+	            'Download CSV'
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'table',
@@ -1879,6 +1921,9 @@
 	var _css = __webpack_require__(9);
 
 	exports.default = {
+	  actions: {
+	    marginBottom: (0, _css.rhythm)(1)
+	  },
 	  cell: {
 	    padding: (0, _css.rhythm)(0.5),
 	    textAlign: 'left',
