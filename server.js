@@ -1147,6 +1147,10 @@
 	      _reactRouter.Link,
 	      {
 	        className: (0, _css.classes)(_styles2.default.linkBasic),
+	        activeStyle: {
+	          color: _css.colors.green.primary,
+	          borderBottomColor: 'currentColor'
+	        },
 	        to: {
 	          pathname: '/campaigns/' + campaignUid + '/teams',
 	          query: query
@@ -1157,6 +1161,10 @@
 	      _reactRouter.Link,
 	      {
 	        className: (0, _css.classes)(_styles2.default.linkBasic),
+	        activeStyle: {
+	          color: _css.colors.green.primary,
+	          borderBottomColor: 'currentColor'
+	        },
 	        to: {
 	          pathname: '/campaigns/' + campaignUid + '/individuals',
 	          query: query
