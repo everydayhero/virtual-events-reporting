@@ -1324,6 +1324,7 @@
 	        defaultValue: filters.threshold_value,
 	        className: (0, _css.classes)(_styles2.default.input),
 	        type: 'number',
+	        placeholder: 'The virtual "finish line"',
 	        inputMode: 'numeric',
 	        min: 0,
 	        step: 1,
@@ -1376,6 +1377,7 @@
 	        _react2.default.createElement('input', {
 	          id: 'fitnessActivitiesStartAt',
 	          defaultValue: filters.fitness_activities_start_at,
+	          placeholder: 'YYYY-MM-DD',
 	          className: (0, _css.classes)(_styles2.default.input),
 	          type: 'date',
 	          ref: function ref(elem) {
@@ -1385,6 +1387,7 @@
 	        _react2.default.createElement('input', {
 	          id: 'fitnessActivitiesEndAt',
 	          defaultValue: filters.fitness_activities_end_at,
+	          placeholder: 'YYYY-MM-DD',
 	          className: (0, _css.classes)(_styles2.default.input),
 	          type: 'date',
 	          ref: function ref(elem) {
