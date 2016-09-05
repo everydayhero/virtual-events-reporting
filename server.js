@@ -56,11 +56,11 @@
 
 	var _routes2 = _interopRequireDefault(_routes);
 
-	var _store = __webpack_require__(25);
+	var _store = __webpack_require__(46);
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _shared = __webpack_require__(30);
+	var _shared = __webpack_require__(51);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -108,11 +108,11 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _Home = __webpack_require__(8);
+	var _Home = __webpack_require__(13);
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _campaigns = __webpack_require__(11);
+	var _campaigns = __webpack_require__(22);
 
 	var _campaigns2 = _interopRequireDefault(_campaigns);
 
@@ -184,19 +184,25 @@
 
 	__webpack_require__(7);
 
+	var _styles = __webpack_require__(8);
+
+	var _styles2 = _interopRequireDefault(_styles);
+
+	var _css = __webpack_require__(9);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = function (_ref) {
 	  var children = _ref.children;
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: (0, _css.classes)(_styles2.default.base) },
 	    _react2.default.createElement(
 	      'nav',
-	      null,
+	      { className: (0, _css.classes)(_styles2.default.nav) },
 	      _react2.default.createElement(
 	        _reactRouter.Link,
-	        { to: '/' },
+	        { to: '/', className: (0, _css.classes)(_styles2.default.navLink) },
 	        'Home'
 	      )
 	    ),
@@ -220,22 +226,124 @@
 	  value: true
 	});
 
-	var _react = __webpack_require__(3);
+	var _css = __webpack_require__(9);
 
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Home = __webpack_require__(9);
-
-	var _Home2 = _interopRequireDefault(_Home);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function () {
-	  return _react2.default.createElement(_Home2.default, null);
+	exports.default = {
+	  base: {},
+	  nav: {
+	    backgroundColor: _css.colors.grey.dark,
+	    display: 'flex'
+	  },
+	  navLink: {
+	    flex: '0 0 auto',
+	    color: _css.colors.white,
+	    padding: (0, _css.rhythm)(0.5),
+	    ':hover': {
+	      color: _css.colors.green.primary
+	    }
+	  }
 	};
 
 /***/ },
 /* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.classes = undefined;
+
+	var _traits = __webpack_require__(10);
+
+	Object.keys(_traits).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _traits[key];
+	    }
+	  });
+	});
+
+	var _cxs = __webpack_require__(11);
+
+	var _cxs2 = _interopRequireDefault(_cxs);
+
+	var _static = __webpack_require__(12);
+
+	var _static2 = _interopRequireDefault(_static);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var classes = exports.classes = function classes(styles) {
+	  return (0, _cxs2.default)((0, _static2.default)(styles));
+	};
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var rhythm = exports.rhythm = function rhythm() {
+	  var value = arguments.length <= 0 || arguments[0] === undefined ? 1 : arguments[0];
+	  var unit = arguments.length <= 1 || arguments[1] === undefined ? 'rem' : arguments[1];
+	  var basis = arguments.length <= 2 || arguments[2] === undefined ? 1.5 : arguments[2];
+	  return '' + basis * value + unit;
+	};
+
+	var scale = exports.scale = function scale() {
+	  var exponent = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+	  var scale = arguments.length <= 1 || arguments[1] === undefined ? 1.2 : arguments[1];
+	  return Math.pow(scale, exponent) + 'rem';
+	};
+
+	var radiuses = exports.radiuses = {
+	  round: rhythm(100),
+	  rounded: rhythm(0.125)
+	};
+
+	var transitions = exports.transitions = {
+	  easeOut: 'ease-out .25s'
+	};
+
+	var fonts = exports.fonts = {
+	  interface: 'Lato, Helvetica Neue, Helvetica, sans-serif',
+	  display: 'Lato, Helvetica Neue, Helvetica, sans-serif'
+	};
+
+	var colors = exports.colors = {
+	  white: 'white',
+
+	  grey: {
+	    dark: '#585858',
+	    light: '#b3b3b3'
+	  },
+
+	  green: {
+	    primary: '#00a044'
+	  }
+	};
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	module.exports = require("cxs");
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	module.exports = require("inline-style-prefixer/static");
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -248,18 +356,51 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _GetCampaign = __webpack_require__(10);
+	var _Home = __webpack_require__(14);
+
+	var _Home2 = _interopRequireDefault(_Home);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function () {
+	  return _react2.default.createElement(_Home2.default, null);
+	};
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _GetCampaign = __webpack_require__(15);
 
 	var _GetCampaign2 = _interopRequireDefault(_GetCampaign);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = function () {
-	  return _react2.default.createElement(_GetCampaign2.default, null);
+	  return _react2.default.createElement(
+	    'div',
+	    { style: {
+	        margin: '4rem auto',
+	        padding: '2rem',
+	        maxWidth: '28rem',
+	        border: 'thin solid lightgrey'
+	      } },
+	    _react2.default.createElement(_GetCampaign2.default, null)
+	  );
 	};
 
 /***/ },
-/* 10 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -274,6 +415,14 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Button = __webpack_require__(16);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(20);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
 	var _reactRouter = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -285,7 +434,7 @@
 
 	var serializeForm = function serializeForm(inputs) {
 	  return keys(inputs).reduce(function (acc, inputName) {
-	    return _extends({}, acc, _defineProperty({}, inputName, inputs[inputName].value));
+	    return _extends({}, acc, _defineProperty({}, inputName, inputs[inputName]));
 	  }, {});
 	};
 
@@ -293,16 +442,10 @@
 	  var _serializeForm = serializeForm(inputs);
 
 	  var campaignUid = _serializeForm.campaignUid;
-	  var thresholdMetric = _serializeForm.thresholdMetric;
-	  var thresholdValue = _serializeForm.thresholdValue;
 
 
 	  router.push({
-	    pathname: '/campaigns/' + campaignUid,
-	    query: {
-	      threshold_metric: thresholdMetric,
-	      threshold_value: thresholdValue
-	    }
+	    pathname: '/campaigns/' + campaignUid + '/teams'
 	  });
 	};
 
@@ -319,72 +462,18 @@
 	      } },
 	    _react2.default.createElement(
 	      'div',
-	      null,
+	      { style: { marginBottom: '1rem' } },
 	      _react2.default.createElement(
-	        'label',
+	        _Input.Label,
 	        { htmlFor: 'campaignUid' },
 	        'Campaign UID'
 	      ),
-	      _react2.default.createElement('input', { id: 'campaignUid', type: 'text', ref: function ref(elem) {
-	          inputs.campaignUid = elem;
+	      _react2.default.createElement(_Input2.default, { id: 'campaignUid', type: 'text', onChange: function onChange(event) {
+	          inputs.campaignUid = event.target.value;
 	        } })
 	    ),
 	    _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'label',
-	        { htmlFor: 'thresholdMetric' },
-	        'Threshold metric'
-	      ),
-	      _react2.default.createElement(
-	        'select',
-	        { id: 'thresholdMetric', ref: function ref(elem) {
-	            inputs.thresholdMetric = elem;
-	          } },
-	        _react2.default.createElement(
-	          'option',
-	          { value: 'distance_in_meters_plus_multiplied_amount_cents' },
-	          'Dollars for Ks'
-	        ),
-	        _react2.default.createElement(
-	          'option',
-	          { value: 'amount_cents' },
-	          'Donations'
-	        ),
-	        _react2.default.createElement(
-	          'option',
-	          { value: 'distance_in_meters' },
-	          'Distance in meters'
-	        ),
-	        _react2.default.createElement(
-	          'option',
-	          { value: 'elevation_in_meters' },
-	          'Elevation in meters'
-	        )
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'label',
-	        { htmlFor: 'thresholdValue' },
-	        'Threshold value'
-	      ),
-	      _react2.default.createElement('input', {
-	        id: 'thresholdValue',
-	        type: 'number',
-	        inputMode: 'numeric',
-	        min: 0,
-	        step: 1,
-	        ref: function ref(elem) {
-	          inputs.thresholdValue = elem;
-	        }
-	      })
-	    ),
-	    _react2.default.createElement(
-	      'button',
+	      _Button2.default,
 	      { type: 'submit' },
 	      'Go!'
 	    )
@@ -394,7 +483,227 @@
 	exports.default = (0, _reactRouter.withRouter)(GetCampaign);
 
 /***/ },
-/* 11 */
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Link = exports.Anchor = undefined;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(4);
+
+	var _Base = __webpack_require__(17);
+
+	var _Base2 = _interopRequireDefault(_Base);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (props) {
+	  return _react2.default.createElement(_Base2.default, _extends({ component: 'button' }, props));
+	};
+
+	var Anchor = exports.Anchor = function Anchor(props) {
+	  return _react2.default.createElement(_Base2.default, _extends({ component: 'a' }, props));
+	};
+
+	var Link = exports.Link = function Link(props) {
+	  return _react2.default.createElement(_Base2.default, _extends({ component: _reactRouter.Link }, props));
+	};
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _css = __webpack_require__(9);
+
+	var _merge = __webpack_require__(18);
+
+	var _merge2 = _interopRequireDefault(_merge);
+
+	var _styles = __webpack_require__(19);
+
+	var _styles2 = _interopRequireDefault(_styles);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+	exports.default = function (_ref) {
+	  var Component = _ref.component;
+
+	  var props = _objectWithoutProperties(_ref, ['component']);
+
+	  var theme = _ref.theme;
+	  return _react2.default.createElement(Component, _extends({}, props, {
+	    className: (0, _css.classes)((0, _merge2.default)(_styles2.default.base, _styles2.default[theme || 'basic']))
+	  }));
+	};
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
+	module.exports = require("lodash/merge");
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _css = __webpack_require__(9);
+
+	var createTheme = function createTheme(_ref) {
+	  var backgroundColor = _ref.backgroundColor;
+	  var color = _ref.color;
+	  return {
+	    backgroundColor: backgroundColor,
+	    color: color,
+	    ':hover': {
+	      backgroundColor: color,
+	      color: backgroundColor
+	    }
+	  };
+	};
+
+	exports.default = {
+	  base: {
+	    textAlign: 'left',
+	    borderRadius: _css.radiuses.rounded,
+	    display: 'inline-block',
+	    marginRight: (0, _css.rhythm)(0.125, 'em'),
+	    lineHeight: 1,
+	    padding: (0, _css.rhythm)(0.5, 'em') + ' ' + (0, _css.rhythm)(0.75, 'em'),
+	    transition: 'background-color ' + _css.transitions.easeOut,
+	    borderColor: 'currentColor',
+	    borderWidth: 'thin',
+	    borderStyle: 'solid'
+	  },
+	  basic: createTheme({
+	    color: _css.colors.grey.dark,
+	    backgroundColor: _css.colors.white
+	  }),
+	  primary: createTheme({
+	    color: _css.colors.green.primary,
+	    backgroundColor: _css.colors.white
+	  })
+	};
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Select = exports.Label = undefined;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _styles = __webpack_require__(21);
+
+	var _styles2 = _interopRequireDefault(_styles);
+
+	var _css = __webpack_require__(9);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (props) {
+	  return _react2.default.createElement('input', _extends({}, props, { className: (0, _css.classes)(_styles2.default.input) }));
+	};
+
+	var Label = exports.Label = function Label(props) {
+	  return _react2.default.createElement('label', _extends({}, props, { className: (0, _css.classes)(_styles2.default.label) }));
+	};
+
+	var Select = exports.Select = function Select(props) {
+	  return _react2.default.createElement('select', _extends({}, props, { className: (0, _css.classes)(_styles2.default.label) }));
+	};
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _css = __webpack_require__(9);
+
+	var input = {
+	  appearance: 'none',
+	  cursor: 'text',
+
+	  fontSize: 'inherit',
+	  lineHeight: (0, _css.rhythm)(1),
+
+	  display: 'block',
+	  boxSizing: 'border-box',
+	  width: '100%',
+
+	  padding: (0, _css.rhythm)(0.25) + ' ' + (0, _css.rhythm)(0.5),
+	  margin: 0,
+
+	  border: 'thin solid ' + _css.colors.grey.dark,
+	  borderRadius: _css.radiuses.rounded,
+
+	  marginRight: (0, _css.rhythm)(0.25),
+	  ':last-child': { marginRight: 0 }
+	};
+
+	var label = {
+	  fontSize: '0.8em',
+	  textTransform: 'uppercase',
+	  marginBottom: (0, _css.rhythm)(0.25)
+	};
+
+	var select = _extends({}, input, {
+	  cursor: 'pointer'
+	});
+
+	exports.default = {
+	  input: input,
+	  select: select,
+	  label: label
+	};
+
+/***/ },
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -404,7 +713,7 @@
 	});
 	exports.reducer = undefined;
 
-	var _reducer = __webpack_require__(12);
+	var _reducer = __webpack_require__(23);
 
 	Object.defineProperty(exports, 'reducer', {
 	  enumerable: true,
@@ -419,19 +728,19 @@
 
 	var _reactRouter = __webpack_require__(4);
 
-	var _Campaign = __webpack_require__(14);
+	var _Campaign = __webpack_require__(25);
 
 	var _Campaign2 = _interopRequireDefault(_Campaign);
 
-	var _Show = __webpack_require__(20);
+	var _Show = __webpack_require__(38);
 
 	var _Show2 = _interopRequireDefault(_Show);
 
-	var _Teams = __webpack_require__(21);
+	var _Teams = __webpack_require__(39);
 
 	var _Teams2 = _interopRequireDefault(_Teams);
 
-	var _Individuals = __webpack_require__(24);
+	var _Individuals = __webpack_require__(45);
 
 	var _Individuals2 = _interopRequireDefault(_Individuals);
 
@@ -456,7 +765,7 @@
 	);
 
 /***/ },
-/* 12 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -467,7 +776,7 @@
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _constants = __webpack_require__(13);
+	var _constants = __webpack_require__(24);
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -520,7 +829,7 @@
 	};
 
 /***/ },
-/* 13 */
+/* 24 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -533,7 +842,7 @@
 	var FETCH_CAMPAIGN_FAILURE = exports.FETCH_CAMPAIGN_FAILURE = 'FETCH_CAMPAIGN_FAILURE';
 
 /***/ },
-/* 14 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -542,106 +851,144 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _react = __webpack_require__(3);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _redux = __webpack_require__(15);
-
-	var _reactRedux = __webpack_require__(16);
-
-	var _redial = __webpack_require__(17);
-
 	var _reactRouter = __webpack_require__(4);
 
-	var _actions = __webpack_require__(18);
+	var _redux = __webpack_require__(26);
+
+	var _reactRedux = __webpack_require__(27);
+
+	var _redial = __webpack_require__(28);
+
+	var _actions = __webpack_require__(29);
+
+	var _Nav = __webpack_require__(32);
+
+	var _Nav2 = _interopRequireDefault(_Nav);
+
+	var _Filters = __webpack_require__(34);
+
+	var _Filters2 = _interopRequireDefault(_Filters);
+
+	var _Content = __webpack_require__(36);
+
+	var _Content2 = _interopRequireDefault(_Content);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var handleFilter = function handleFilter(pathname, query, router) {
+	  return function (_ref) {
+	    var thresholdMetric = _ref.thresholdMetric;
+	    var thresholdValue = _ref.thresholdValue;
+	    var fitnessActivitiesType = _ref.fitnessActivitiesType;
+	    var fitnessActivitiesStartAt = _ref.fitnessActivitiesStartAt;
+	    var fitnessActivitiesEndAt = _ref.fitnessActivitiesEndAt;
+
+	    router.push({
+	      pathname: pathname,
+	      query: _extends({}, query, {
+	        threshold_metric: thresholdMetric,
+	        threshold_value: thresholdValue,
+	        fitness_activities_type: fitnessActivitiesType,
+	        fitness_activities_start_at: fitnessActivitiesStartAt,
+	        fitness_activities_end_at: fitnessActivitiesEndAt
+	      })
+	    });
+	  };
+	};
+
 	var hooks = {
-	  fetch: function fetch(_ref) {
-	    var dispatch = _ref.dispatch;
-	    var state = _ref.state;
-	    var params = _ref.params;
+	  fetch: function fetch(_ref2) {
+	    var dispatch = _ref2.dispatch;
+	    var state = _ref2.state;
+	    var params = _ref2.params;
 	    var campaignUid = params.campaignUid;
 	    var threshold_metric = params.threshold_metric;
 	    var threshold_value = params.threshold_value;
+	    var fitness_activities_start_at = params.fitness_activities_start_at;
+	    var fitness_activities_end_at = params.fitness_activities_end_at;
+	    var fitness_activities_type = params.fitness_activities_type;
 
 
 	    return dispatch((0, _actions.fetchCampaign)({
 	      campaignUid: campaignUid,
 	      threshold_metric: threshold_metric,
-	      threshold_value: threshold_value
+	      threshold_value: threshold_value,
+	      fitness_activities_start_at: fitness_activities_start_at,
+	      fitness_activities_end_at: fitness_activities_end_at,
+	      fitness_activities_type: fitness_activities_type
 	    }));
 	  }
 	};
 
-	var mapState = function mapState(_ref2, _ref3) {
-	  var campaigns = _ref2.campaigns;
-	  var params = _ref3.params;
+	var mapState = function mapState(_ref3, _ref4) {
+	  var campaigns = _ref3.campaigns;
+	  var params = _ref4.params;
 	  return {
 	    campaign: campaigns[params.campaignUid]
 	  };
 	};
 
-	var Campaign = function Campaign(_ref4) {
-	  var campaign = _ref4.campaign;
-	  var params = _ref4.params;
-	  var location = _ref4.location;
-	  var children = _ref4.children;
+	var Campaign = function Campaign(_ref5) {
+	  var _ref5$campaign = _ref5.campaign;
+	  var campaign = _ref5$campaign === undefined ? {} : _ref5$campaign;
+	  var _ref5$params = _ref5.params;
+	  var params = _ref5$params === undefined ? {} : _ref5$params;
+	  var _ref5$location = _ref5.location;
+	  var location = _ref5$location === undefined ? {} : _ref5$location;
+	  var router = _ref5.router;
+	  var children = _ref5.children;
+	  var query = location.query;
+
+
 	  return _react2.default.createElement(
 	    'div',
 	    null,
+	    _react2.default.createElement(_Nav2.default, {
+	      campaignUid: params.campaignUid,
+	      query: location.query,
+	      status: campaign.status,
+	      campaign: campaign.attributes
+	    }),
+	    _react2.default.createElement(_Filters2.default, {
+	      onSubmit: handleFilter(location.pathname, query, router),
+	      filters: query
+	    }),
 	    _react2.default.createElement(
-	      'nav',
-	      null,
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: {
-	            pathname: '/campaigns/' + params.campaignUid + '/teams',
-	            query: location.query
-	          } },
-	        'Teams'
-	      ),
-	      _react2.default.createElement(
-	        _reactRouter.Link,
-	        { to: {
-	            pathname: '/campaigns/' + params.campaignUid + '/individuals',
-	            query: location.query
-	          } },
-	        'Individuals'
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'div',
+	      _Content2.default,
 	      null,
 	      children
 	    )
 	  );
 	};
 
-	exports.default = (0, _redux.compose)((0, _redial.provideHooks)(hooks), (0, _reactRedux.connect)(mapState))(Campaign);
+	exports.default = (0, _redux.compose)((0, _redial.provideHooks)(hooks), (0, _reactRedux.connect)(mapState), _reactRouter.withRouter)(Campaign);
 
 /***/ },
-/* 15 */
+/* 26 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux");
 
 /***/ },
-/* 16 */
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-redux");
 
 /***/ },
-/* 17 */
+/* 28 */
 /***/ function(module, exports) {
 
 	module.exports = require("redial");
 
 /***/ },
-/* 18 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -651,17 +998,39 @@
 	});
 	exports.setCampaignSortedBy = exports.fetchCampaign = undefined;
 
-	var _axios = __webpack_require__(19);
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _qs = __webpack_require__(30);
+
+	var _axios = __webpack_require__(31);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _constants = __webpack_require__(13);
+	var _constants = __webpack_require__(24);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-	var API_BASE = (process.env.SUPPORTER_URL || 'https://everydayhero-staging.com') + '/api/v3/prerelease/metrics';
+	var API_BASE = (process.env.SUPPORTER_URL || 'https://everydayhero.com') + '/api/v3/prerelease/metrics';
+
+	var nest = function nest(_ref) {
+	  var fitnessActivitiesType = _ref.fitness_activities_type;
+	  var fitnessActivitiesStartAt = _ref.fitness_activities_start_at;
+	  var fitnessActivitiesEndAt = _ref.fitness_activities_end_at;
+
+	  var rest = _objectWithoutProperties(_ref, ['fitness_activities_type', 'fitness_activities_start_at', 'fitness_activities_end_at']);
+
+	  return _extends({}, rest, {
+	    filter: {
+	      fitness_activities: {
+	        type: fitnessActivitiesType,
+	        start_at: fitnessActivitiesStartAt,
+	        end_at: fitnessActivitiesEndAt
+	      }
+	    }
+	  });
+	};
 
 	var fetchCampaignFailure = function fetchCampaignFailure(payload) {
 	  return {
@@ -677,10 +1046,10 @@
 	  };
 	};
 
-	var fetchCampaign = exports.fetchCampaign = function fetchCampaign(_ref) {
-	  var campaignUid = _ref.campaignUid;
+	var fetchCampaign = exports.fetchCampaign = function fetchCampaign(_ref2) {
+	  var campaignUid = _ref2.campaignUid;
 
-	  var params = _objectWithoutProperties(_ref, ['campaignUid']);
+	  var params = _objectWithoutProperties(_ref2, ['campaignUid']);
 
 	  return function (dispatch) {
 	    dispatch({
@@ -691,10 +1060,8 @@
 	      }
 	    });
 
-	    (0, _axios2.default)(API_BASE + '/campaigns/' + campaignUid, {
-	      params: params
-	    }).then(function (_ref2) {
-	      var data = _ref2.data;
+	    (0, _axios2.default)(API_BASE + '/campaigns/' + campaignUid + '?' + (0, _qs.stringify)(nest(params))).then(function (_ref3) {
+	      var data = _ref3.data;
 
 	      dispatch(fetchCampaignSuccess({
 	        campaignUid: campaignUid,
@@ -720,13 +1087,439 @@
 	};
 
 /***/ },
-/* 19 */
+/* 30 */
+/***/ function(module, exports) {
+
+	module.exports = require("qs");
+
+/***/ },
+/* 31 */
 /***/ function(module, exports) {
 
 	module.exports = require("axios");
 
 /***/ },
-/* 20 */
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(4);
+
+	var _css = __webpack_require__(9);
+
+	var _styles = __webpack_require__(33);
+
+	var _styles2 = _interopRequireDefault(_styles);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (_ref) {
+	  var campaignUid = _ref.campaignUid;
+	  var _ref$status = _ref.status;
+	  var status = _ref$status === undefined ? 'fetching' : _ref$status;
+	  var _ref$campaign = _ref.campaign;
+	  var campaign = _ref$campaign === undefined ? {} : _ref$campaign;
+	  var _ref$query = _ref.query;
+	  var query = _ref$query === undefined ? {} : _ref$query;
+	  return _react2.default.createElement(
+	    'nav',
+	    { className: (0, _css.classes)(_styles2.default.nav) },
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      {
+	        className: (0, _css.classes)(_styles2.default.linkLarge),
+	        to: {
+	          pathname: '/campaigns/' + campaignUid,
+	          query: query
+	        } },
+	      status === 'fetched' ? campaign.name : status
+	    ),
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      {
+	        className: (0, _css.classes)(_styles2.default.linkBasic),
+	        to: {
+	          pathname: '/campaigns/' + campaignUid + '/teams',
+	          query: query
+	        } },
+	      'Teams'
+	    ),
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      {
+	        className: (0, _css.classes)(_styles2.default.linkBasic),
+	        to: {
+	          pathname: '/campaigns/' + campaignUid + '/individuals',
+	          query: query
+	        } },
+	      'Individuals'
+	    )
+	  );
+	};
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _css = __webpack_require__(9);
+
+	var linkBase = {
+	  padding: (0, _css.rhythm)(0.5),
+	  lineHeight: (0, _css.rhythm)(1),
+	  borderRight: 'thin solid ' + _css.colors.grey.light,
+	  borderBottomWidth: (0, _css.rhythm)(0.25),
+	  borderBottomStyle: 'solid',
+	  borderBottomColor: _css.colors.grey.light,
+	  ':hover': {
+	    borderBottomColor: _css.colors.grey.dark
+	  }
+	};
+
+	exports.default = {
+	  nav: {
+	    display: 'flex',
+	    flexFlow: 'row'
+	  },
+	  linkBasic: _extends({}, linkBase, {
+	    flex: '1 1 50%'
+	  }),
+	  linkLarge: _extends({}, linkBase, {
+	    flex: '1 1 100%'
+	  })
+	};
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Button = __webpack_require__(16);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _styles = __webpack_require__(35);
+
+	var _styles2 = _interopRequireDefault(_styles);
+
+	var _css = __webpack_require__(9);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var keys = Object.keys;
+
+
+	var serializeForm = function serializeForm(inputs) {
+	  return keys(inputs).reduce(function (acc, inputName) {
+	    return _extends({}, acc, _defineProperty({}, inputName, inputs[inputName].value));
+	  }, {});
+	};
+
+	var handleSubmit = function handleSubmit(event) {
+	  var inputs = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	  var onSubmit = arguments.length <= 2 || arguments[2] === undefined ? function () {} : arguments[2];
+
+	  event.preventDefault();
+	  onSubmit(serializeForm(inputs));
+	};
+
+	exports.default = function (_ref) {
+	  var propsOnSubmit = _ref.onSubmit;
+	  var _ref$filters = _ref.filters;
+	  var filters = _ref$filters === undefined ? {} : _ref$filters;
+
+	  var inputs = {};
+
+	  return _react2.default.createElement(
+	    'form',
+	    { className: (0, _css.classes)(_styles2.default.base), onSubmit: function onSubmit(e) {
+	        handleSubmit(e, inputs, propsOnSubmit);
+	      } },
+	    _react2.default.createElement(
+	      'fieldset',
+	      { className: (0, _css.classes)(_styles2.default.filter) },
+	      _react2.default.createElement(
+	        'label',
+	        { className: (0, _css.classes)(_styles2.default.label), htmlFor: 'thresholdMetric' },
+	        'Threshold metric'
+	      ),
+	      _react2.default.createElement(
+	        'select',
+	        {
+	          id: 'thresholdMetric',
+	          defaultValue: filters.threshold_metric,
+	          className: (0, _css.classes)(_styles2.default.select),
+	          ref: function ref(elem) {
+	            inputs.thresholdMetric = elem;
+	          } },
+	        _react2.default.createElement(
+	          'option',
+	          { value: 'distance_in_meters_plus_multiplied_amount_cents' },
+	          'Dollars for Ks'
+	        ),
+	        _react2.default.createElement(
+	          'option',
+	          { value: 'amount_cents' },
+	          'Donations'
+	        ),
+	        _react2.default.createElement(
+	          'option',
+	          { value: 'distance_in_meters' },
+	          'Distance in meters'
+	        ),
+	        _react2.default.createElement(
+	          'option',
+	          { value: 'elevation_in_meters' },
+	          'Elevation in meters'
+	        )
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'fieldset',
+	      { className: (0, _css.classes)(_styles2.default.filter) },
+	      _react2.default.createElement(
+	        'label',
+	        { className: (0, _css.classes)(_styles2.default.label), htmlFor: 'thresholdValue' },
+	        'Threshold value'
+	      ),
+	      _react2.default.createElement('input', {
+	        id: 'thresholdValue',
+	        defaultValue: filters.threshold_value,
+	        className: (0, _css.classes)(_styles2.default.input),
+	        type: 'number',
+	        inputMode: 'numeric',
+	        min: 0,
+	        step: 1,
+	        ref: function ref(elem) {
+	          inputs.thresholdValue = elem;
+	        }
+	      })
+	    ),
+	    _react2.default.createElement(
+	      'fieldset',
+	      { className: (0, _css.classes)(_styles2.default.filter) },
+	      _react2.default.createElement(
+	        'label',
+	        { className: (0, _css.classes)(_styles2.default.label), htmlFor: 'fitnessActivitiesType' },
+	        'Fitness activities type'
+	      ),
+	      _react2.default.createElement(
+	        'select',
+	        {
+	          id: 'fitnessActivitiesType',
+	          defaultValue: filters.fitness_activities_type,
+	          className: (0, _css.classes)(_styles2.default.select),
+	          ref: function ref(elem) {
+	            inputs.fitnessActivitiesType = elem;
+	          }
+	        },
+	        _react2.default.createElement(
+	          'option',
+	          { value: 'bike' },
+	          'Bike'
+	        ),
+	        _react2.default.createElement(
+	          'option',
+	          { value: 'run' },
+	          'Run'
+	        )
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'fieldset',
+	      { className: (0, _css.classes)(_styles2.default.filter) },
+	      _react2.default.createElement(
+	        'label',
+	        { className: (0, _css.classes)(_styles2.default.label) },
+	        'Fitness activities date range'
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: (0, _css.classes)(_styles2.default.compoundInput) },
+	        _react2.default.createElement('input', {
+	          id: 'fitnessActivitiesStartAt',
+	          defaultValue: filters.fitness_activities_start_at,
+	          className: (0, _css.classes)(_styles2.default.input),
+	          type: 'date',
+	          ref: function ref(elem) {
+	            inputs.fitnessActivitiesStartAt = elem;
+	          }
+	        }),
+	        _react2.default.createElement('input', {
+	          id: 'fitnessActivitiesEndAt',
+	          defaultValue: filters.fitness_activities_end_at,
+	          className: (0, _css.classes)(_styles2.default.input),
+	          type: 'date',
+	          ref: function ref(elem) {
+	            inputs.fitnessActivitiesEndAt = elem;
+	          }
+	        })
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: (0, _css.classes)(_styles2.default.actions) },
+	      _react2.default.createElement(
+	        _Button2.default,
+	        { type: 'submit' },
+	        'Filter'
+	      )
+	    )
+	  );
+	};
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _css = __webpack_require__(9);
+
+	var input = {
+	  appearance: 'none',
+	  lineHeight: (0, _css.rhythm)(1),
+	  padding: (0, _css.rhythm)(0.25) + ' ' + (0, _css.rhythm)(0.5),
+	  border: 'thin solid ' + _css.colors.grey.dark,
+	  borderRadius: _css.radiuses.rounded,
+	  fontSize: 'inherit',
+	  margin: 0,
+	  boxSizing: 'border-box',
+	  display: 'block',
+	  width: '100%',
+	  marginRight: (0, _css.rhythm)(0.25),
+	  cursor: 'text',
+	  ':last-child': {
+	    marginRight: 0
+	  }
+	};
+
+	var container = {
+	  display: 'flex',
+	  flexFlow: 'row',
+	  flexWrap: 'wrap'
+	};
+
+	var label = {
+	  fontSize: '0.8em',
+	  textTransform: 'uppercase',
+	  marginBottom: (0, _css.rhythm)(0.25)
+	};
+
+	exports.default = {
+	  base: _extends({}, container, {
+	    padding: (0, _css.rhythm)(0.75) + ' ' + (0, _css.rhythm)(0.25),
+	    borderBottom: 'thin solid ' + _css.colors.grey.light
+	  }),
+	  filter: {
+	    flex: '1 1 25%',
+	    boxSizing: 'border-box',
+	    marginBottom: (0, _css.rhythm)(0.5),
+	    padding: (0, _css.rhythm)(0.25)
+	  },
+	  label: _extends({}, label, {
+	    lineHeight: (0, _css.rhythm)(0.75),
+	    display: 'block'
+	  }),
+	  input: _extends({}, input),
+	  select: _extends({}, input, {
+	    cursor: 'pointer'
+	  }),
+	  compoundInput: _extends({}, container, {
+	    flexWrap: 'nowrap'
+	  }),
+	  actions: {
+	    padding: (0, _css.rhythm)(0.25),
+	    justifyContent: 'flex-end'
+	  }
+	};
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _styles = __webpack_require__(37);
+
+	var _styles2 = _interopRequireDefault(_styles);
+
+	var _css = __webpack_require__(9);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (_ref) {
+	  var children = _ref.children;
+	  return _react2.default.createElement(
+	    'div',
+	    { className: (0, _css.classes)(_styles2.default.base) },
+	    children
+	  );
+	};
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _css = __webpack_require__(9);
+
+	exports.default = {
+	  base: {
+	    padding: (0, _css.rhythm)(0.5)
+	  }
+	};
+
+/***/ },
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -776,7 +1569,7 @@
 	exports.default = (0, _reactRouter.withRouter)(Show);
 
 /***/ },
-/* 21 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -791,15 +1584,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _redux = __webpack_require__(15);
+	var _redux = __webpack_require__(26);
 
-	var _reactRedux = __webpack_require__(16);
+	var _reactRedux = __webpack_require__(27);
 
 	var _reactRouter = __webpack_require__(4);
 
-	var _Table = __webpack_require__(22);
+	var _Table = __webpack_require__(40);
 
 	var _Table2 = _interopRequireDefault(_Table);
+
+	var _Typography = __webpack_require__(43);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -845,7 +1640,7 @@
 	    'div',
 	    null,
 	    _react2.default.createElement(
-	      'h1',
+	      _Typography.H1,
 	      null,
 	      'Teams'
 	    ),
@@ -866,7 +1661,7 @@
 	exports.default = (0, _redux.compose)(_reactRouter.withRouter, (0, _reactRedux.connect)(mapState))(Teams);
 
 /***/ },
-/* 22 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -881,7 +1676,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _papaparse = __webpack_require__(23);
+	var _Button = __webpack_require__(16);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _papaparse = __webpack_require__(41);
+
+	var _css = __webpack_require__(9);
+
+	var _styles = __webpack_require__(42);
+
+	var _styles2 = _interopRequireDefault(_styles);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -902,7 +1707,7 @@
 
 	    return _react2.default.createElement(
 	      'th',
-	      { key: index },
+	      { key: index, className: (0, _css.classes)(_styles2.default.cell) },
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: function onClick(e) {
@@ -929,12 +1734,12 @@
 	  return function (datum, index) {
 	    return _react2.default.createElement(
 	      'tr',
-	      { key: index },
+	      { key: index, className: (0, _css.classes)(_styles2.default.row) },
 	      headers.map(function (_ref, index) {
 	        var attribute = _ref.attribute;
 	        return _react2.default.createElement(
 	          'td',
-	          { key: index },
+	          { key: index, className: (0, _css.classes)(_styles2.default.cell) },
 	          datum[attribute]
 	        );
 	      })
@@ -994,15 +1799,15 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          'button',
+	          _Button2.default,
 	          { onClick: function onClick(e) {
 	              return _this2.createCSVURL(sorted);
 	            } },
 	          'Create CSV'
 	        ),
 	        downloadURL && _react2.default.createElement(
-	          'a',
-	          { href: downloadURL, target: '_blank', download: 'virtual-event-info.csv' },
+	          _Button.Anchor,
+	          { theme: 'primary', href: downloadURL, target: '_blank', download: 'virtual-event-info.csv' },
 	          'Download CSV'
 	        ),
 	        _react2.default.createElement(
@@ -1033,13 +1838,93 @@
 	exports.default = Table;
 
 /***/ },
-/* 23 */
+/* 41 */
 /***/ function(module, exports) {
 
 	module.exports = require("papaparse");
 
 /***/ },
-/* 24 */
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _css = __webpack_require__(9);
+
+	exports.default = {
+	  cell: {
+	    padding: (0, _css.rhythm)(0.5),
+	    textAlign: 'left'
+	  },
+	  row: {
+	    borderTopColor: _css.colors.grey.light,
+	    borderTopStyle: 'solid',
+	    borderTopWidth: 'thin'
+	  }
+	};
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.H1 = undefined;
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _styles = __webpack_require__(44);
+
+	var _styles2 = _interopRequireDefault(_styles);
+
+	var _css = __webpack_require__(9);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var H1 = exports.H1 = function H1(_ref) {
+	  var children = _ref.children;
+	  return _react2.default.createElement(
+	    'h1',
+	    { className: (0, _css.classes)(_styles2.default.heading1) },
+	    children
+	  );
+	};
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _css = __webpack_require__(9);
+
+	var heading = {};
+
+	exports.default = {
+	  heading1: _extends({}, heading, {
+	    marginTop: (0, _css.rhythm)(1.5),
+	    marginBottom: (0, _css.rhythm)(1),
+	    fontSize: (0, _css.scale)(2)
+	  })
+	};
+
+/***/ },
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1054,15 +1939,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Table = __webpack_require__(22);
+	var _Table = __webpack_require__(40);
 
 	var _Table2 = _interopRequireDefault(_Table);
 
 	var _reactRouter = __webpack_require__(4);
 
-	var _redux = __webpack_require__(15);
+	var _redux = __webpack_require__(26);
 
-	var _reactRedux = __webpack_require__(16);
+	var _reactRedux = __webpack_require__(27);
+
+	var _Typography = __webpack_require__(43);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1108,7 +1995,7 @@
 	    'div',
 	    null,
 	    _react2.default.createElement(
-	      'h1',
+	      _Typography.H1,
 	      null,
 	      'Individuals'
 	    ),
@@ -1129,7 +2016,7 @@
 	exports.default = (0, _redux.compose)(_reactRouter.withRouter, (0, _reactRedux.connect)(mapState))(Individuals);
 
 /***/ },
-/* 25 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1138,19 +2025,19 @@
 	  value: true
 	});
 
-	var _reduxLogger = __webpack_require__(26);
+	var _reduxLogger = __webpack_require__(47);
 
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 
-	var _reducer = __webpack_require__(27);
+	var _reducer = __webpack_require__(48);
 
 	var _reducer2 = _interopRequireDefault(_reducer);
 
-	var _reduxThunk = __webpack_require__(29);
+	var _reduxThunk = __webpack_require__(50);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _redux = __webpack_require__(15);
+	var _redux = __webpack_require__(26);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1168,13 +2055,13 @@
 	};
 
 /***/ },
-/* 26 */
+/* 47 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-logger");
 
 /***/ },
-/* 27 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1183,11 +2070,11 @@
 	  value: true
 	});
 
-	var _redux = __webpack_require__(15);
+	var _redux = __webpack_require__(26);
 
-	var _reactRouterRedux = __webpack_require__(28);
+	var _reactRouterRedux = __webpack_require__(49);
 
-	var _campaigns = __webpack_require__(11);
+	var _campaigns = __webpack_require__(22);
 
 	exports.default = (0, _redux.combineReducers)({
 	  campaigns: _campaigns.reducer,
@@ -1195,19 +2082,19 @@
 	});
 
 /***/ },
-/* 28 */
+/* 49 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-router-redux");
 
 /***/ },
-/* 29 */
+/* 50 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
 
 /***/ },
-/* 30 */
+/* 51 */
 /***/ function(module, exports) {
 
 	'use strict';
