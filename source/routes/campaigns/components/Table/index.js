@@ -4,6 +4,16 @@ import { unparse } from 'papaparse'
 import { classes } from '../../../../utils/css'
 import styles from './styles'
 
+const sortedState = (attribute, sortedBy) => {
+  if (attribute === sortedBy) {
+    return 'sortedAscending'
+  } else if (sortedBy[0] === '-' && sortedBy.slice(1) === attribute) {
+    return 'sortedDescending'
+  } else {
+    return 'unsorted'
+  }
+}
+
 const createHeader = (
   setSortedBy = () => {},
   sortedBy = ''
@@ -15,7 +25,9 @@ const createHeader = (
 
   return (
     <th key={index} className={classes(styles.cell)}>
-      <button onClick={(e) => setSortedBy(sortAttribute)}>
+      <button
+        className={classes(styles[sortedState(attribute, sortedBy)])}
+        onClick={(e) => setSortedBy(sortAttribute)}>
         {label}
       </button>
     </th>
