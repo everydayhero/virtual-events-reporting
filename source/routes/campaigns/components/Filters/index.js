@@ -64,6 +64,7 @@ export default ({
           defaultValue={filters.threshold_value}
           className={classes(styles.input)}
           type='number'
+          placeholder='The virtual "finish line"'
           inputMode='numeric'
           min={0}
           step={1}
@@ -98,6 +99,7 @@ export default ({
           <input
             id='fitnessActivitiesStartAt'
             defaultValue={filters.fitness_activities_start_at}
+            placeholder='YYYY-MM-DD'
             className={classes(styles.input)}
             type='date'
             ref={(elem) => {
@@ -108,6 +110,7 @@ export default ({
           <input
             id='fitnessActivitiesEndAt'
             defaultValue={filters.fitness_activities_end_at}
+            placeholder='YYYY-MM-DD'
             className={classes(styles.input)}
             type='date'
             ref={(elem) => {
