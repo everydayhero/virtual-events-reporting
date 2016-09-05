@@ -5,7 +5,7 @@
   "main": "dist/index.html",
   "scripts": {
     "clean": "rm -rf dist",
-    "start": "npm run clear && brb serve --base-path=$BASE_PATH --client-config='./webpack.client.config'",
+    "start": "npm run clean && brb serve --base-path=$BASE_PATH --client-config='./webpack.client.config'",
     "build": "npm run clean && brb build --base-path=$BASE_PATH --client-config='./webpack.client.config'",
     "build:staging": "NODE_ENV=production BASE_PATH='/virtual-events-reporting/' npm run build",
     "deploy:staging": "npm run build:staging && cp dist/index.html dist/404.html && gh-pages -d dist"

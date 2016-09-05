@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { classes } from '../../../../utils/css'
+import { classes, colors } from '../../../../utils/css'
 
 import styles from './styles'
 
@@ -22,6 +22,10 @@ export default ({
 
     <Link
       className={classes(styles.linkBasic)}
+      activeStyle={{
+        color: colors.green.primary,
+        borderBottomColor: 'currentColor'
+      }}
       to={{
         pathname: `/campaigns/${campaignUid}/teams`,
         query
@@ -31,6 +35,10 @@ export default ({
 
     <Link
       className={classes(styles.linkBasic)}
+      activeStyle={{
+        color: colors.green.primary,
+        borderBottomColor: 'currentColor'
+      }}
       to={{
         pathname: `/campaigns/${campaignUid}/individuals`,
         query
