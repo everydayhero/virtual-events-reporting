@@ -1,6 +1,7 @@
 @import './reset.css';
 
 $font-family: 'Helvetica Nueue', 'Helvetica', 'sans-serif';
+$base-font-size: 90%;
 $line-height: 1.5em;
 
 :root, html, body {
@@ -11,4 +12,5 @@ $line-height: 1.5em;
 :root {
   font-family: $font-family;
   line-height: $line-height;
+  font-size: $base-font-size;
 }

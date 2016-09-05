@@ -1,3 +1,4 @@
+import { stringify } from 'qs'
 import axios from 'axios'
 import {
   FETCH_CAMPAIGN,
@@ -6,7 +7,23 @@ import {
   SET_CAMPAIGN_SORTED_BY
 } from '../constants'
 
-const API_BASE = `${process.env.SUPPORTER_URL || 'https://everydayhero-staging.com'}/api/v3/prerelease/metrics`
+const API_BASE = `${process.env.SUPPORTER_URL || 'https://everydayhero.com'}/api/v3/prerelease/metrics`
+
+const nest = ({
+  fitness_activities_type: fitnessActivitiesType,
+  fitness_activities_start_at: fitnessActivitiesStartAt,
+  fitness_activities_end_at: fitnessActivitiesEndAt,
+  ...rest
+}) => ({
+  ...rest,
+  filter: {
+    fitness_activities: {
+      type: fitnessActivitiesType,
+      start_at: fitnessActivitiesStartAt,
+      end_at: fitnessActivitiesEndAt
+    }
+  }
+})
 
 const fetchCampaignFailure = (payload) => ({
   type: FETCH_CAMPAIGN_FAILURE,
@@ -30,9 +47,7 @@ export const fetchCampaign = ({
     }
   })
 
-  axios(`${API_BASE}/campaigns/${campaignUid}`, {
-    params
-  }).then(({ data }) => {
+  axios(`${API_BASE}/campaigns/${campaignUid}?${stringify(nest(params))}`).then(({ data }) => {
     dispatch(fetchCampaignSuccess({
       campaignUid,
       data,

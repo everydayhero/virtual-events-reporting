@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
+import Button, { Anchor } from '../../../../components/Button'
 import { unparse } from 'papaparse'
+import { classes } from '../../../../utils/css'
+import styles from './styles'
 
 const createHeader = (
   setSortedBy = () => {},
@@ -11,7 +14,7 @@ const createHeader = (
     : attribute
 
   return (
-    <th key={index}>
+    <th key={index} className={classes(styles.cell)}>
       <button onClick={(e) => setSortedBy(sortAttribute)}>
         {label}
       </button>
@@ -37,9 +40,9 @@ const sort = (sortedBy, collection) => {
 }
 
 const createRow = (headers) => (datum, index) => (
-  <tr key={index}>
+  <tr key={index} className={classes(styles.row)}>
     {headers.map(({ attribute }, index) => (
-      <td key={index}>{datum[attribute]}</td>
+      <td key={index} className={classes(styles.cell)}>{datum[attribute]}</td>
     ))}
   </tr>
 )
@@ -78,11 +81,11 @@ class Table extends Component {
 
     return (
       <div>
-        <button onClick={(e) => this.createCSVURL(sorted)}>Create CSV</button>
+        <Button onClick={(e) => this.createCSVURL(sorted)}>Create CSV</Button>
         {downloadURL && (
-          <a href={downloadURL} target='_blank' download='virtual-event-info.csv'>
+          <Anchor theme='primary' href={downloadURL} target='_blank' download='virtual-event-info.csv'>
             Download CSV
-          </a>
+          </Anchor>
         )}
 
         <table>

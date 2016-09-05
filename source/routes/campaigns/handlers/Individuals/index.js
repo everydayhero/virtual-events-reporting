@@ -3,6 +3,7 @@ import Table from '../../components/Table'
 import { withRouter } from 'react-router'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { H1 } from '../../../../components/Typography'
 
 const mapState = ({ campaigns }, { params }) => ({
   campaign: campaigns[params.campaignUid]
@@ -30,7 +31,7 @@ const Individuals = ({ campaign = {}, params, location, router }) => {
 
   return (
     <div>
-      <h1>Individuals</h1>
+      <H1>Individuals</H1>
 
       <Table
         campaignUid={params.campaignUid}
