@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { classes, colors } from '../../../../utils/css'
+import merge from 'lodash/merge'
 
 import styles from './styles'
 
@@ -12,12 +13,15 @@ export default ({
 }) => (
   <nav className={classes(styles.nav)}>
     <Link
-      className={classes(styles.linkLarge)}
+      className={classes(merge(
+        styles.linkLarge,
+        styles[status] || {}
+      ))}
       to={{
         pathname: `/campaigns/${campaignUid}`,
         query
       }}>
-      {status === 'fetched' ? campaign.name : status}
+      {status === 'fetching' ? 'Fetching' : status === 'failed' ? 'Failed to fetch campaign info' : campaign.name}
     </Link>
 
     <Link

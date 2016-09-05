@@ -4,6 +4,9 @@ import {
 } from '../../../../utils/css'
 
 export default {
+  actions: {
+    marginBottom: rhythm(1)
+  },
   cell: {
     padding: rhythm(0.5),
     textAlign: 'left',

@@ -93,12 +93,14 @@ class Table extends Component {
 
     return (
       <div>
-        <Button onClick={(e) => this.createCSVURL(sorted)}>Create CSV</Button>
-        {downloadURL && (
-          <Anchor theme='primary' href={downloadURL} target='_blank' download='virtual-event-info.csv'>
-            Download CSV
-          </Anchor>
-        )}
+        <div className={classes(styles.actions)}>
+          <Button onClick={(e) => this.createCSVURL(sorted)}>Create CSV</Button>
+          {downloadURL && (
+            <Anchor theme='primary' href={downloadURL} target='_blank' download='virtual-event-info.csv'>
+              Download CSV
+            </Anchor>
+          )}
+        </div>
 
         <table>
           <thead>

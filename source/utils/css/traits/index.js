@@ -29,6 +29,9 @@ export const colors = {
   },
 
   green: {
-    primary: '#00a044'
-  }
+    primary: '#00a044',
+    secondary: '#7ec774'
+  },
+
+  orange: '#cf4c22'
 }
