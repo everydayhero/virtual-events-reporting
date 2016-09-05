@@ -1707,6 +1707,16 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var sortedState = function sortedState(attribute, sortedBy) {
+	  if (attribute === sortedBy) {
+	    return 'sortedAscending';
+	  } else if (sortedBy[0] === '-' && sortedBy.slice(1) === attribute) {
+	    return 'sortedDescending';
+	  } else {
+	    return 'unsorted';
+	  }
+	};
+
 	var createHeader = function createHeader() {
 	  var setSortedBy = arguments.length <= 0 || arguments[0] === undefined ? function () {} : arguments[0];
 	  var sortedBy = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
@@ -1721,7 +1731,9 @@
 	      { key: index, className: (0, _css.classes)(_styles2.default.cell) },
 	      _react2.default.createElement(
 	        'button',
-	        { onClick: function onClick(e) {
+	        {
+	          className: (0, _css.classes)(_styles2.default[sortedState(attribute, sortedBy)]),
+	          onClick: function onClick(e) {
 	            return setSortedBy(sortAttribute);
 	          } },
 	        label
@@ -1869,12 +1881,31 @@
 	exports.default = {
 	  cell: {
 	    padding: (0, _css.rhythm)(0.5),
-	    textAlign: 'left'
+	    textAlign: 'left',
+	    borderLeft: 'thin solid whitesmoke',
+	    ':first-child': {
+	      borderLeft: 'none'
+	    }
 	  },
 	  row: {
 	    borderTopColor: _css.colors.grey.light,
 	    borderTopStyle: 'solid',
 	    borderTopWidth: 'thin'
+	  },
+	  unsorted: {
+	    ':before': {
+	      content: '""'
+	    }
+	  },
+	  sortedAscending: {
+	    ':before': {
+	      content: '"\\25B2"'
+	    }
+	  },
+	  sortedDescending: {
+	    ':before': {
+	      content: '"\\25BC"'
+	    }
 	  }
 	};
 
