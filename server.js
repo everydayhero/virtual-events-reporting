@@ -1021,15 +1021,18 @@
 	  var fitnessActivitiesType = _ref.fitness_activities_type;
 	  var fitnessActivitiesStartAt = _ref.fitness_activities_start_at;
 	  var fitnessActivitiesEndAt = _ref.fitness_activities_end_at;
+	  var _ref$fitness_activiti = _ref.fitness_activities_include_manual;
+	  var fitnessActivitiesIncludeManual = _ref$fitness_activiti === undefined ? false : _ref$fitness_activiti;
 
-	  var rest = _objectWithoutProperties(_ref, ['fitness_activities_type', 'fitness_activities_start_at', 'fitness_activities_end_at']);
+	  var rest = _objectWithoutProperties(_ref, ['fitness_activities_type', 'fitness_activities_start_at', 'fitness_activities_end_at', 'fitness_activities_include_manual']);
 
 	  return _extends({}, rest, {
 	    filter: {
 	      fitness_activities: {
 	        type: fitnessActivitiesType,
 	        start_at: fitnessActivitiesStartAt,
-	        end_at: fitnessActivitiesEndAt
+	        end_at: fitnessActivitiesEndAt,
+	        manual: fitnessActivitiesIncludeManual ? [true, false] : false
 	      }
 	    }
 	  });
