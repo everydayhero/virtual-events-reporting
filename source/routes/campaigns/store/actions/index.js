@@ -13,6 +13,7 @@ const nest = ({
   fitness_activities_type: fitnessActivitiesType,
   fitness_activities_start_at: fitnessActivitiesStartAt,
   fitness_activities_end_at: fitnessActivitiesEndAt,
+  fitness_activities_include_manual: fitnessActivitiesIncludeManual = false,
   ...rest
 }) => ({
   ...rest,
@@ -20,7 +21,8 @@ const nest = ({
     fitness_activities: {
       type: fitnessActivitiesType,
       start_at: fitnessActivitiesStartAt,
-      end_at: fitnessActivitiesEndAt
+      end_at: fitnessActivitiesEndAt,
+      manual: fitnessActivitiesIncludeManual ? [true, false] : false
     }
   }
 })
