@@ -40,9 +40,17 @@ const sort = (sortedBy, collection) => {
     ? sortedBy.slice(1)
     : sortedBy
 
-  const sorted = collection.sort((a, b) => (
-    a[attribute] - b[attribute]
-  ))
+  const sorted = collection.sort((a, b) => {
+    if (a[attribute] === null && b[attribute] === null) {
+      return 0
+    } else if (a[attribute] === null) {
+      return 1
+    } else if (b[attribute] === null) {
+      return -1
+    } else {
+      return a[attribute] - b[attribute]
+    }
+  })
 
   return (
     isReversed
