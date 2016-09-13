@@ -1788,7 +1788,15 @@
 	  var attribute = isReversed ? sortedBy.slice(1) : sortedBy;
 
 	  var sorted = collection.sort(function (a, b) {
-	    return a[attribute] - b[attribute];
+	    if (a[attribute] === null && b[attribute] === null) {
+	      return 0;
+	    } else if (a[attribute] === null) {
+	      return 1;
+	    } else if (b[attribute] === null) {
+	      return -1;
+	    } else {
+	      return a[attribute] - b[attribute];
+	    }
 	  });
 
 	  return isReversed ? sorted.reverse() : sorted;
