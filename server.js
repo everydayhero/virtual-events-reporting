@@ -60,7 +60,7 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _shared = __webpack_require__(51);
+	var _shared = __webpack_require__(50);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -291,15 +291,15 @@
 	  value: true
 	});
 	var rhythm = exports.rhythm = function rhythm() {
-	  var value = arguments.length <= 0 || arguments[0] === undefined ? 1 : arguments[0];
-	  var unit = arguments.length <= 1 || arguments[1] === undefined ? 'rem' : arguments[1];
-	  var basis = arguments.length <= 2 || arguments[2] === undefined ? 1.5 : arguments[2];
+	  var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+	  var unit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'rem';
+	  var basis = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1.5;
 	  return '' + basis * value + unit;
 	};
 
 	var scale = exports.scale = function scale() {
-	  var exponent = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
-	  var scale = arguments.length <= 1 || arguments[1] === undefined ? 1.2 : arguments[1];
+	  var exponent = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+	  var scale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1.2;
 	  return Math.pow(scale, exponent) + 'rem';
 	};
 
@@ -812,9 +812,9 @@
 	};
 
 	exports.default = function () {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-	  var _ref3 = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	  var _ref3 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 	  var type = _ref3.type;
 	  var payload = _ref3.payload;
@@ -1294,12 +1294,14 @@
 	};
 
 	var handleSubmit = function handleSubmit(event) {
-	  var inputs = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-	  var onSubmit = arguments.length <= 2 || arguments[2] === undefined ? function () {} : arguments[2];
+	  var inputs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	  var onSubmit = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
 
 	  event.preventDefault();
 	  onSubmit(serializeForm(inputs));
 	};
+
+	var FITNESS_TYPES = ['bike', 'sport', 'walk', 'run', 'hike', 'swim', 'gym'];
 
 	exports.default = function (_ref) {
 	  var propsOnSubmit = _ref.onSubmit;
@@ -1392,16 +1394,13 @@
 	            inputs.fitnessActivitiesType = elem;
 	          }
 	        },
-	        _react2.default.createElement(
-	          'option',
-	          { value: 'bike' },
-	          'Bike'
-	        ),
-	        _react2.default.createElement(
-	          'option',
-	          { value: 'run' },
-	          'Run'
-	        )
+	        FITNESS_TYPES.map(function (type) {
+	          return _react2.default.createElement(
+	            'option',
+	            { value: type },
+	            type
+	          );
+	        })
 	      )
 	    ),
 	    _react2.default.createElement(
@@ -1759,8 +1758,8 @@
 	};
 
 	var createHeader = function createHeader() {
-	  var setSortedBy = arguments.length <= 0 || arguments[0] === undefined ? function () {} : arguments[0];
-	  var sortedBy = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
+	  var setSortedBy = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
+	  var sortedBy = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 	  return function (header, index) {
 	    var attribute = header.attribute;
 	    var label = header.label;
@@ -2131,7 +2130,7 @@
 
 	var _reducer2 = _interopRequireDefault(_reducer);
 
-	var _reduxThunk = __webpack_require__(50);
+	var _reduxThunk = __webpack_require__(49);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -2148,7 +2147,7 @@
 	var createStoreWithMiddleware = (0, _redux.compose)(_redux.applyMiddleware.apply(undefined, middleware))(_redux.createStore);
 
 	exports.default = function () {
-	  var initialState = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var initialState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	  return createStoreWithMiddleware(_reducer2.default, initialState);
 	};
 
@@ -2170,29 +2169,20 @@
 
 	var _redux = __webpack_require__(26);
 
-	var _reactRouterRedux = __webpack_require__(49);
-
 	var _campaigns = __webpack_require__(22);
 
 	exports.default = (0, _redux.combineReducers)({
-	  campaigns: _campaigns.reducer,
-	  routing: _reactRouterRedux.routerReducer
+	  campaigns: _campaigns.reducer
 	});
 
 /***/ },
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router-redux");
-
-/***/ },
-/* 50 */
-/***/ function(module, exports) {
-
 	module.exports = require("redux-thunk");
 
 /***/ },
-/* 51 */
+/* 50 */
 /***/ function(module, exports) {
 
 	'use strict';
