@@ -21,6 +21,16 @@ const handleSubmit = (
   onSubmit(serializeForm(inputs))
 }
 
+const FITNESS_TYPES = [
+  'bike',
+  'sport',
+  'walk',
+  'run',
+  'hike',
+  'swim',
+  'gym'
+]
+
 export default ({
   onSubmit: propsOnSubmit,
   filters = {}
@@ -87,8 +97,9 @@ export default ({
             inputs.fitnessActivitiesType = elem
           }}
         >
-          <option value='bike'>Bike</option>
-          <option value='run'>Run</option>
+          {FITNESS_TYPES.map((type) => (
+            <option value={type}>{type}</option>
+          ))}
         </select>
       </fieldset>
 
